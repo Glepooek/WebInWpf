@@ -1,14 +1,12 @@
-﻿<Window x:Class="WebInWpf.WebView2.MainWindow"
+﻿<Window x:Class="WebInWpf.WebView2Demo.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
-        xmlns:local="clr-namespace:WebInWpf.WebView2"
         mc:Ignorable="d"
         Title="MainWindow"
         WindowStartupLocation="CenterScreen"
-        ResizeMode="CanMinimize"
         Height="700"
         Width="1300">
     <Grid>
@@ -16,11 +14,10 @@
             <RowDefinition Height="auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Button Content="NewWindow"
-                Click="Button_Click"
-                Width="100"
-                Height="30" />
-        <wv2:WebView2 x:Name="webview"
+        <!--<wv2:WebView2 x:Name="webView"
+                      Grid.Row="1"
+                      Source="file:///E:/WpfCodePlex/WebInWpf/WebInWpf/WebInWpf.WebView2Demo/TestWeb/index.html" />-->
+        <wv2:WebView2 x:Name="webView"
                       Grid.Row="1"
                       Source="https://www.baidu.com" />
     </Grid>
