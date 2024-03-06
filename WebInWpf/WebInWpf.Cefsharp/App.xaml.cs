@@ -79,7 +79,7 @@ namespace Unipus.Student.Client
 
             if (!Cef.IsInitialized)
             {
-                Cef.EnableHighDPISupport();
+                //Cef.EnableHighDPISupport();
                 //Perform dependency check to make sure all relevant resources are in our output directory.
                 Cef.Initialize(settings, performDependencyCheck: true, browserProcessHandler: null);
             }
