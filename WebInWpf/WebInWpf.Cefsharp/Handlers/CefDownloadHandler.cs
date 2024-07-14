@@ -14,7 +14,7 @@ internal class CefDownloadHandler : IDownloadHandler
         return true;
     }
 
-    public void OnBeforeDownload(IWebBrowser chromiumWebBrowser, IBrowser browser, DownloadItem downloadItem, IBeforeDownloadCallback callback)
+    public bool OnBeforeDownload(IWebBrowser chromiumWebBrowser, IBrowser browser, DownloadItem downloadItem, IBeforeDownloadCallback callback)
     {
         OnBeforeDownloadFired?.Invoke(this, downloadItem);
 
@@ -24,7 +24,10 @@ internal class CefDownloadHandler : IDownloadHandler
             {
                 callback.Continue(downloadItem.SuggestedFileName, showDialog: true);
             }
+            return true;
         }
+
+        return false;
     }
 
     public void OnDownloadUpdated(IWebBrowser chromiumWebBrowser, IBrowser browser, DownloadItem downloadItem, IDownloadItemCallback callback)
