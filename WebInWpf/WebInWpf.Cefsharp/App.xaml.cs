@@ -66,10 +66,12 @@ namespace Unipus.Student.Client
 
             var settings = new CefSettings()
             {
-                // 禁止日志打印
-                LogSeverity = LogSeverity.Disable,
+                // 启用日志打印
+                LogSeverity = LogSeverity.Warning,
+                //LogFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), $"CefSharp\\{DateTime.Now:yyyy-MM-dd}.log"),
+                //UserDataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CefSharp\\UserData"),
                 // By default CefSharp will use an in-memory cache, you need to specify a Cache Folder to persist data
-                CachePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CefSharp\\Cache")
+                CachePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CefSharp\\Cache"),
             };
 
             // setting a command line argument
@@ -77,7 +79,8 @@ namespace Unipus.Student.Client
             settings.CefCommandLineArgs.Add("use-fake-ui-for-media-stream");
             settings.CefCommandLineArgs.Add("enable-usermedia-screen-capturing");
 
-            if (!Cef.IsInitialized)
+            var result = Cef.IsInitialized;
+            if (result.HasValue && !result.Value)
             {
                 //Cef.EnableHighDPISupport();
                 //Perform dependency check to make sure all relevant resources are in our output directory.
