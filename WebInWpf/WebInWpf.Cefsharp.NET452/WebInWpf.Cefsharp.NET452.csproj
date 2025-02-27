@@ -53,6 +53,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -71,6 +72,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Handlers\KeyboardHandler.cs" />
     <Compile Include="WebViewWindow.xaml.cs">
       <DependentUpon>WebViewWindow.xaml</DependentUpon>
     </Compile>
@@ -90,8 +92,8 @@
       <DependentUpon>CefSharpWebViewControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Handlers\DownloadHandler.cs" />
-    <Compile Include="Handlers\LoadCompletedHandler.cs" />
-    <Compile Include="Handlers\NoMenuHandler.cs" />
+    <Compile Include="Handlers\LoadHandler.cs" />
+    <Compile Include="Handlers\ContextMenuHandler.cs" />
     <Compile Include="Handlers\OpenPageSelf.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

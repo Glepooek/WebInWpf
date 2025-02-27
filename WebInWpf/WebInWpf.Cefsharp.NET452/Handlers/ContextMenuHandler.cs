@@ -2,7 +2,7 @@
 
 namespace WebInWpf.Cefsharp.NET452.Handlers
 {
-    public class NoContextMenuHandler : IContextMenuHandler
+    public class ContextMenuHandler : IContextMenuHandler
     {
         public void OnBeforeContextMenu(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model)
         {

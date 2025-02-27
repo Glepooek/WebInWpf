@@ -3,11 +3,11 @@ using System;
 
 namespace WebInWpf.Cefsharp.NET452.Handlers
 {
-    public class LoadCompletedHandler : ILoadHandler
+    public class LoadHandler : ILoadHandler
     {
         private Action LoadStart = null;
         private Action<bool> LoadEnd = null;
-        public LoadCompletedHandler(Action loadStart, Action<bool> loadEnd)
+        public LoadHandler(Action loadStart, Action<bool> loadEnd)
         {
             LoadStart= loadStart;
             LoadEnd = loadEnd;
