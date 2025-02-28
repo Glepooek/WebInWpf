@@ -11,7 +11,8 @@ using System.IO;
 using System.Reflection;
 
 // https://gitcode.com/open-source-toolkit/cefa1/overview
-// cef 109.1.18
+// cef.redist.x86 109.1.18
+// cef.redist.x64 109.1.18
 
 // https://github.com/cefsharp/CefSharp/issues/1714
 // https://www.cnblogs.com/xietianjiao/p/11599117.html#:~:text=%E7%94%A8%20anycpu%20%E7%BC%96%E8%AF%91%E7%9A%84%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6%E5%B0%86%E5%9C%A8%2064%20%E4%BD%8D%20CLR%20%E4%B8%8A%E6%89%A7%E8%A1%8C%E3%80%82%20%E7%94%A8,%E7%94%A8%20x64%20%E7%BC%96%E8%AF%91%E7%9A%84%E7%A8%8B%E5%BA%8F%E9%9B%86%E6%97%A0%E6%B3%95%E8%BF%90%E8%A1%8C%E3%80%82%20%E8%BF%99%E6%98%AF%E5%9C%A8%E5%8F%B3%E5%87%BB%E5%B1%9E%E6%80%A7%EF%BC%8C%E9%80%89%E6%8B%A9%E9%A6%96%E9%80%8932%E4%BD%8D%E6%89%8D%E4%BC%9A%E4%BD%BF%E7%94%A8%E7%9A%84%E6%96%B9%E6%B3%95%EF%BC%8C%E5%BF%85%E9%A1%BB%E4%BD%BF%E7%94%A8%20.net%20framework%204.5%20%E4%BB%A5%E4%B8%8A%E6%89%8D%E5%8F%AF%E4%BB%A5%E4%BD%BF%E7%94%A8%E3%80%82
