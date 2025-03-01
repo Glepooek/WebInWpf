@@ -57,6 +57,7 @@ namespace WebInWpf.Cefsharp.NET452
             settings.CefCommandLineArgs.Add("allow-file-access-from-files", "1");
             settings.CefCommandLineArgs.Add("disable-gpu", "1"); // 禁用gpu,解决闪烁的问题
             settings.CefCommandLineArgs.Add("touch-events", "1");
+            settings.CefCommandLineArgs.Add("disable-web-security", "1");// 关闭同源策略，允许跨域调试
 
             if (!Cef.IsInitialized)
             {
