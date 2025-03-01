@@ -32,11 +32,25 @@
                     Command="{Binding ElementName=BrowserX, Path=ForwardCommand}" />
             <Button x:Name="NewWebView"
                     Content="NewWebView"
-                    Width="80"
+                    Width="100"
                     Height="30"
                     Margin="10,0,0,0"
                     HorizontalAlignment="Left"
                     Click="NewWebView_Click" />
+            <Button x:Name="CsharpCallJS"
+                    Content="CsharpCallJS"
+                    Width="100"
+                    Height="30"
+                    Margin="10,0,0,0"
+                    HorizontalAlignment="Left"
+                    Click="CsharpCallJS_Click" />
+            <Button x:Name="CsharpSendMessage"
+                    Content="CsharpSendMessage"
+                    Width="140"
+                    Height="30"
+                    Margin="10,0,0,0"
+                    HorizontalAlignment="Left"
+                    Click="CsharpSendMessage_Click" />
         </StackPanel>
 
         <controls:CefSharpWebViewControl x:Name="BrowserX" Grid.Row="1" />

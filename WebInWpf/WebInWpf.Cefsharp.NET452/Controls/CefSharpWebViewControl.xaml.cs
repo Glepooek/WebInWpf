@@ -1,4 +1,5 @@
-﻿using CefSharp.Wpf.Experimental;
+﻿using CefSharp;
+using CefSharp.Wpf.Experimental;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,8 +14,14 @@ namespace WebInWpf.Cefsharp.NET452.Controls
     /// </summary>
     public partial class CefSharpWebViewControl : UserControl
     {
+        #region Fields
+
         //加载动画
         Storyboard LoadingAnimated = null;
+
+        #endregion
+
+        #region Constructor
 
         public CefSharpWebViewControl()
         {
@@ -50,13 +57,21 @@ namespace WebInWpf.Cefsharp.NET452.Controls
                     {
                         LoadingImage.Visibility = Visibility.Collapsed;
                         LoadingAnimated?.Stop(LoadingImage);
+                        Browser.JavascriptMessageReceived += Browser_JavascriptMessageReceived;
                     }
 
                     this.BackCommand = Browser.BackCommand;
                     this.ForwardCommand = Browser.ForwardCommand;
                 });
             });
+            Browser.Load($"{AppDomain.CurrentDomain.BaseDirectory}TestWeb//index.html");
+
+            RegisterBoundObject("webView", new BoundObject());
         }
+
+        #endregion
+
+        #region DependencyProperties
 
         public ICommand BackCommand
         {
@@ -75,5 +90,50 @@ namespace WebInWpf.Cefsharp.NET452.Controls
 
         public static readonly DependencyProperty ForwardCommandProperty =
             DependencyProperty.Register("ForwardCommand", typeof(ICommand), typeof(CefSharpWebViewControl), new PropertyMetadata(null));
+
+        #endregion
+
+        #region EventHandles
+
+        private void Browser_JavascriptMessageReceived(object sender, JavascriptMessageReceivedEventArgs e)
+        {
+            Console.WriteLine(e.Message);
+        }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// 注册回调对象，用于JS调用C#方法
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="objectToBind"></param>
+        private void RegisterBoundObject(string name, object objectToBind)
+        {
+            Browser.JavascriptObjectRepository.Settings.LegacyBindingEnabled = true;
+            Browser.JavascriptObjectRepository.Register(name, objectToBind, true, BindingOptions.DefaultBinder);
+        }
+
+        /// <summary>
+        /// C#调用JS方法
+        /// </summary>
+        public void CallJavaScriptAsync(string code, string scriptUrl = "about:blank", int startLine = 1)
+        {
+            if (!Browser.IsBrowserInitialized)
+            {
+                return;
+            }
+
+            try
+            {
+                Browser?.GetBrowser()?.MainFrame.ExecuteJavaScriptAsync(code, scriptUrl, startLine);
+            }
+            catch (Exception)
+            {
+            }
+        }
+
+        #endregion
     }
 }

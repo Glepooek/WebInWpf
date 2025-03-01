@@ -17,5 +17,15 @@ namespace WebInWpf.Cefsharp.NET452
             WebViewWindow webViewWindow = new WebViewWindow();
             webViewWindow.Show();
         }
+
+        private void CsharpCallJS_Click(object sender, RoutedEventArgs e)
+        {
+            BrowserX.CallJavaScriptAsync("calledByCsharp('Hello JS from C#')");
+        }
+
+        private void CsharpSendMessage_Click(object sender, RoutedEventArgs e)
+        {
+            BrowserX.CallJavaScriptAsync("window.postMessage('Message from C#', '*');");
+        }
     }
 }
