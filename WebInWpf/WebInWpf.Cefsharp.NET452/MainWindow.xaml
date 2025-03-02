@@ -3,17 +3,19 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:wpf="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
+        xmlns:cef="clr-namespace:CefSharp;assembly=CefSharp.Core"
         xmlns:local="clr-namespace:WebInWpf.Cefsharp.NET452"
         xmlns:controls="clr-namespace:WebInWpf.Cefsharp.NET452.Controls"
         mc:Ignorable="d"
         Title="MainWindow"
         Height="450"
         Width="800">
+
     <Grid x:Name="ctrlBrowerGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition />
+            <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal">
             <Button x:Name="GoBack"
@@ -54,6 +56,38 @@
         </StackPanel>
 
         <controls:CefSharpWebViewControl x:Name="BrowserX" Grid.Row="1" />
+
+        <StatusBar Grid.Row="2"
+                   HorizontalAlignment="Stretch"
+                   HorizontalContentAlignment="Stretch">
+            <StatusBar.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                </ItemsPanelTemplate>
+            </StatusBar.ItemsPanel>
+            <StatusBarItem Grid.Column="0">
+                <TextBlock Text="{Binding HoverLink, ElementName=HoverLinkBehaviour}"
+                           HorizontalAlignment="Stretch"
+                           VerticalAlignment="Center" />
+            </StatusBarItem>
+            <Separator Grid.Column="1" />
+            <StatusBarItem Grid.Column="2">
+                <TextBlock HorizontalAlignment="Right"
+                           TextAlignment="Right"
+                           VerticalAlignment="Center">
+                    Chromium:<Run Text="{Binding Source={x:Static cef:Cef.ChromiumVersion}, Mode=OneTime}" />
+                    , CEF:<Run Text="{Binding Source={x:Static cef:Cef.CefVersion}, Mode=OneTime}" />
+                    , CefSharp:<Run Text="{Binding Source={x:Static cef:Cef.CefSharpVersion}, Mode=OneTime}" />
+                    , Environment:<Run Text="{Binding Converter={StaticResource EnvironmentConverter}, Mode=OneTime}" />
+                </TextBlock>
+            </StatusBarItem>
+        </StatusBar>
     </Grid>
 
 </Window>

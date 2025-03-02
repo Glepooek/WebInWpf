@@ -57,6 +57,7 @@ public partial class MainWindow : Window
             webView.CoreWebView2.WebMessageReceived += OnCoreWebView2WebMessageReceived;
             //mLogger.Info("WebView2's CoreWebView2 creation succeed");
 
+            Debug.WriteLine($"ChromeVersion: {webView.CoreWebView2.Environment.BrowserVersionString}");
             return;
         }
 

@@ -64,7 +64,7 @@ namespace WebInWpf.Cefsharp.NET452.Controls
                     this.ForwardCommand = Browser.ForwardCommand;
                 });
             });
-            Browser.Load($"{AppDomain.CurrentDomain.BaseDirectory}TestWeb//index.html");
+            //Browser.Load($"{AppDomain.CurrentDomain.BaseDirectory}TestWeb//index.html");
 
             RegisterBoundObject("webView", new BoundObject());
         }

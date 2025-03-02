@@ -39,7 +39,6 @@
     </UserControl.Resources>
 
     <Grid>
-        <!--<wpf:ChromiumWebBrowser x:Name="Browser" Address="https://www.baidu.com" />-->
         <wpf:ChromiumWebBrowser x:Name="Browser" Address="https://www.baidu.com" />
 
         <Grid x:Name="LoadingImage" Visibility="Collapsed">
