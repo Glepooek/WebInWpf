@@ -11,6 +11,6 @@
     <Grid>
         <Frame x:Name="frame"
                NavigationUIVisibility="Hidden"
-               Source="file:///E:/ProjectxPlex/WPFCodePlex/WebInWpf/WebInWpf/WebInWpf.FrameDemo/bin/Debug/net8.0-windows/TestWeb/index.html" />
+               Source="file:///E:/ProjectxPlex/WPFCodePlex/WebInWpf/WebInWpf/WebInWpf.FrameDemo/bin/Debug/TestWeb/index.html" />
     </Grid>
 </Window>

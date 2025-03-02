@@ -1,20 +1,11 @@
 ﻿using Microsoft.Web.WebView2.Core;
 using Microsoft.Web.WebView2.Wpf;
 using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Diagnostics;
 using System.Text;
-using System.Threading.Tasks;
+using System.Text.Json;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Interop;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Unipus.Student.Client.WebView2Interop;
 
 namespace WebInWpf.WebView2Demo;
@@ -63,7 +54,7 @@ public partial class MainWindow : Window
             webView.CoreWebView2.ProcessFailed += OnCoreWebView2ProcessFailed;
             // JS调用C#方法。使用方法参考TestWeb/index.html
             webView.CoreWebView2.AddHostObjectToScript("UniStuWebView2HostObject", new DotnetInterop(this));
-
+            webView.CoreWebView2.WebMessageReceived += OnCoreWebView2WebMessageReceived;
             //mLogger.Info("WebView2's CoreWebView2 creation succeed");
 
             return;
@@ -98,6 +89,11 @@ public partial class MainWindow : Window
         deferral.Complete();
     }
 
+    private void OnCoreWebView2WebMessageReceived(object? sender, CoreWebView2WebMessageReceivedEventArgs e)
+    {
+        Debug.WriteLine(e.WebMessageAsJson);
+    }
+
     private void OnWebViewKeyDown(object sender, KeyEventArgs e)
     {
         if (e.IsRepeat) return;
@@ -129,6 +125,25 @@ public partial class MainWindow : Window
         }
     }
 
+    private async void OnCsharpCallJS(object sender, RoutedEventArgs e)
+    {
+        var result = await webView.JSFuncAsync("app4.calculateAdd1(1,2)");
+        Debug.WriteLine(result);
+    }
+
+    private void OnSendMessageToJS(object sender, RoutedEventArgs e)
+    {
+        if (webView.CoreWebView2 != null)
+        {
+            // 发送字符串消息
+            webView.CoreWebView2.PostWebMessageAsString("Hello from WPF!");
+
+            // 发送 JSON 格式消息
+            var jsonData = new { Action = "update", Value = 42 };
+            string json = JsonSerializer.Serialize(jsonData);
+            webView.CoreWebView2.PostWebMessageAsJson(json);
+        }
+    }
     #endregion
 
     #region PrivateMethods
@@ -137,7 +152,7 @@ public partial class MainWindow : Window
     {
         control.CoreWebView2.Settings.IsPasswordAutosaveEnabled = false;
         control.CoreWebView2.Settings.AreDefaultContextMenusEnabled = false;
-        control.CoreWebView2.Settings.AreDevToolsEnabled = false;
+        control.CoreWebView2.Settings.AreDevToolsEnabled = true;
         control.CoreWebView2.Settings.IsZoomControlEnabled = false;
     }
 

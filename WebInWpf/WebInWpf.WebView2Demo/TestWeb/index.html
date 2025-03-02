@@ -13,6 +13,7 @@
         <button style="margin-left:10px" v-on:click="closeWindow">关闭主窗口</button>
         <button style="margin-left:10px" v-on:click="minimizeWindow">最小化主窗口</button>
         <button style="margin-left:10px" v-on:click="maximizeWindow">最大化、还原窗口</button>
+        <button style="margin-left:10px" v-on:click="sendMessageToHost">发消息到C#</button>
     </div>
 
     <script>
@@ -23,6 +24,18 @@
             document.getElementById('app3').addEventListener('mousedown', evt => {
                 chrome.webview.hostObjects.UniStuWebView2HostObject.MouseDownDrag();
             });
+        });
+
+        // 监听消息
+        window.chrome.webview.addEventListener('message', (event) => {
+            try {
+                // 解析 JSON 消息（若发送的是 JSON）
+                const data = JSON.parse(event.data);
+                console.log("收到宿主消息（JSON）:", data.Action, data.Value);
+            } catch {
+                // 直接处理字符串消息
+                console.log("收到宿主消息（字符串）:", event.data);
+            }
         });
 
         var app4 = new Vue({
@@ -52,6 +65,15 @@
                     this.result = num1 + num2;
                     alert("传入参数: num1=" + num1 + " num2=" + num2 + " result=" + this.result);
                     return this.result;
+                },
+                // 发消息到C#
+                sendMessageToHost() {
+                    // 发送字符串消息
+                    window.chrome.webview.postMessage("Hello from Web!");
+
+                    // 发送 JSON 消息
+                    const data = { Type: "response", Content: "Success" };
+                    window.chrome.webview.postMessage(JSON.stringify(data));
                 }
             }
         })
