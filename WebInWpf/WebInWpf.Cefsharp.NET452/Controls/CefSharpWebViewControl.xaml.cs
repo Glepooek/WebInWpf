@@ -74,9 +74,9 @@ namespace WebInWpf.Cefsharp.NET452.Controls
 
             RegisterBoundObject("webView", new BoundObject());
 
-            //this.Address = "https://www.baidu.com";
+            this.Address = "https://www.baidu.com";
             //this.Address = $"{AppDomain.CurrentDomain.BaseDirectory}TestWeb//index.html";
-            this.Address = "https://cws-test.unipus.cn/?&id=320431807554125824&version=28&u-app-id=1709&mode=edit";
+            //this.Address = "https://cws-test.unipus.cn/?&id=320431807554125824&version=28&u-app-id=1709&mode=edit";
 
         }
 
