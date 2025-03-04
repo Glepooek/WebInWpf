@@ -39,6 +39,7 @@ namespace WebInWpf.Cefsharp.NET452
 
             var settings = new CefSettings()
             {
+                IgnoreCertificateErrors = true,
                 // 启用日志打印
                 LogSeverity = LogSeverity.Warning,
                 LogFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), $"CefSharp\\{DateTime.Now:yyyy-MM-dd}.log"),
@@ -63,7 +64,7 @@ namespace WebInWpf.Cefsharp.NET452
             {
                 //Cef.EnableHighDPISupport();
                 //Perform dependency check to make sure all relevant resources are in our output directory.
-                Cef.Initialize(settings, performDependencyCheck: true, browserProcessHandler: null);
+                Cef.Initialize(settings, performDependencyCheck: true);
             }
         }
     }

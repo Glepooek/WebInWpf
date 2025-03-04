@@ -64,9 +64,13 @@ namespace WebInWpf.Cefsharp.NET452.Controls
                     this.ForwardCommand = Browser.ForwardCommand;
                 });
             });
-            //Browser.Load($"{AppDomain.CurrentDomain.BaseDirectory}TestWeb//index.html");
 
             RegisterBoundObject("webView", new BoundObject());
+
+            //this.Address = "https://www.baidu.com";
+            //this.Address = $"{AppDomain.CurrentDomain.BaseDirectory}TestWeb//index.html";
+            this.Address = "https://cws-test.unipus.cn/?&id=320431807554125824&version=28&u-app-id=1709&mode=edit";
+
         }
 
         #endregion
@@ -90,6 +94,24 @@ namespace WebInWpf.Cefsharp.NET452.Controls
 
         public static readonly DependencyProperty ForwardCommandProperty =
             DependencyProperty.Register("ForwardCommand", typeof(ICommand), typeof(CefSharpWebViewControl), new PropertyMetadata(null));
+
+
+        public string Address
+        {
+            get { return (string)GetValue(AddressProperty); }
+            set { SetValue(AddressProperty, value); }
+        }
+
+        public static readonly DependencyProperty AddressProperty =
+            DependencyProperty.Register("Address", typeof(string), typeof(CefSharpWebViewControl), new PropertyMetadata(null, OnAddressPropertyChanged));
+
+        private static void OnAddressPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is CefSharpWebViewControl control && e.NewValue != null)
+            {
+                control.Browser.Load(e.NewValue.ToString());
+            }
+        }
 
         #endregion
 
