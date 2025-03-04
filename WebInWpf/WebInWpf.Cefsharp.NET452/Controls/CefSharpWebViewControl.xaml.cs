@@ -63,6 +63,13 @@ namespace WebInWpf.Cefsharp.NET452.Controls
                     this.BackCommand = Browser.BackCommand;
                     this.ForwardCommand = Browser.ForwardCommand;
                 });
+            },
+            ()=>
+            {
+                this.Dispatcher.Invoke(() =>
+                {
+                    this.Address = $"{AppDomain.CurrentDomain.BaseDirectory}TestWeb//default.html";
+                });
             });
 
             RegisterBoundObject("webView", new BoundObject());
