@@ -1,7 +1,7 @@
 ﻿using CefSharp;
 using System;
 
-namespace WebInWpf.Cefsharp.NET452.Handlers
+namespace WebInWpf.Cefsharp.NET452.Controls.Handlers
 {
     public class LoadHandler : ILoadHandler
     {

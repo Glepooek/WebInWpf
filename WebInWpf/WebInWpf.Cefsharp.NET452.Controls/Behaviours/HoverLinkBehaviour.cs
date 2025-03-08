@@ -3,7 +3,7 @@ using System.Windows;
 using System;
 using Microsoft.Xaml.Behaviors;
 
-namespace WebInWpf.Cefsharp.NET452.Behaviours
+namespace WebInWpf.Cefsharp.NET452.Controls.Behaviours
 {
     public class HoverLinkBehaviour : Behavior<ChromiumWebBrowser>
     {

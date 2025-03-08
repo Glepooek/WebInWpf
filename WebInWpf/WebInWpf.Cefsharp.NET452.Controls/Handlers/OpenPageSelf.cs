@@ -1,7 +1,7 @@
 ﻿using CefSharp;
 using CefSharp.Wpf;
 
-namespace WebInWpf.Cefsharp.NET452.Handlers
+namespace WebInWpf.Cefsharp.NET452.Controls.Handlers
 {
     /// <summary>
     /// 在自己窗口打开链接

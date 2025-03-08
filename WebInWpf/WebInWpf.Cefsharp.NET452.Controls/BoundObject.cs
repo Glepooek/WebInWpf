@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WebInWpf.Cefsharp.NET452.Handlers
+namespace WebInWpf.Cefsharp.NET452.Controls
 {
     public class BoundObject
     {

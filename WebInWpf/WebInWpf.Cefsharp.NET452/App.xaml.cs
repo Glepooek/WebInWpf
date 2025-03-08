@@ -1,14 +1,9 @@
-﻿using CefSharp.Wpf;
-using CefSharp;
+﻿using CefSharp;
+using CefSharp.Wpf;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
 using System.IO;
-using System.Reflection;
+using System.Runtime.CompilerServices;
+using System.Windows;
 
 // https://gitcode.com/open-source-toolkit/cefa1/overview
 // cef.redist.x86 109.1.18
@@ -30,6 +25,7 @@ namespace WebInWpf.Cefsharp.NET452
             InitializeCef();
         }
 
+        [MethodImpl(MethodImplOptions.NoInlining)]
         private void InitializeCef()
         {
             CefSharpSettings.FocusedNodeChangedEnabled = true;

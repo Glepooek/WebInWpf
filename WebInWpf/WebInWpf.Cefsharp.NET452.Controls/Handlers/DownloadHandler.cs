@@ -1,6 +1,6 @@
 ﻿using CefSharp;
 
-namespace WebInWpf.Cefsharp.NET452.Handlers
+namespace WebInWpf.Cefsharp.NET452.Controls.Handlers
 {
     public class DownloadHandler : IDownloadHandler
     {

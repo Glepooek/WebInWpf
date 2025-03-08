@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebInWpf.FrameDemo", "WebIn
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebInWpf.Cefsharp.NET452", "WebInWpf.Cefsharp.NET452\WebInWpf.Cefsharp.NET452.csproj", "{71DA9AF9-6419-4443-8FBC-D0E55B96CB1A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebInWpf.Cefsharp.NET452.Controls", "WebInWpf.Cefsharp.NET452.Controls\WebInWpf.Cefsharp.NET452.Controls.csproj", "{7C191BB2-14E7-433B-80F1-ACCCDB3FF59B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{71DA9AF9-6419-4443-8FBC-D0E55B96CB1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{71DA9AF9-6419-4443-8FBC-D0E55B96CB1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{71DA9AF9-6419-4443-8FBC-D0E55B96CB1A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C191BB2-14E7-433B-80F1-ACCCDB3FF59B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C191BB2-14E7-433B-80F1-ACCCDB3FF59B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C191BB2-14E7-433B-80F1-ACCCDB3FF59B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C191BB2-14E7-433B-80F1-ACCCDB3FF59B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

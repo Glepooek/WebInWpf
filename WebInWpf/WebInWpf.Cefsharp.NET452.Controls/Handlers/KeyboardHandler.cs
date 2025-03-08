@@ -2,7 +2,7 @@
 using System;
 using System.Windows.Forms;
 
-namespace WebInWpf.Cefsharp.NET452.Handlers
+namespace WebInWpf.Cefsharp.NET452.Controls.Handlers
 {
     public class KeyboardHandler : IKeyboardHandler
     {

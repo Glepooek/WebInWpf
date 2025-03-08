@@ -12,12 +12,6 @@ namespace WebInWpf.Cefsharp.NET452
             InitializeComponent();
         }
 
-        private void NewWebView_Click(object sender, RoutedEventArgs e)
-        {
-            WebViewWindow webViewWindow = new WebViewWindow();
-            webViewWindow.Show();
-        }
-
         private void CsharpCallJS_Click(object sender, RoutedEventArgs e)
         {
             BrowserX.CallJavaScriptAsync("calledByCsharp('Hello JS from C#')");

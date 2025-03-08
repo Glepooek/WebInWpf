@@ -5,14 +5,14 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
-using WebInWpf.Cefsharp.NET452.Handlers;
+using WebInWpf.Cefsharp.NET452.Controls.Handlers;
 
 namespace WebInWpf.Cefsharp.NET452.Controls
 {
     /// <summary>
-    /// Interaction logic for CefSharpWebViewControl.xaml
+    /// Interaction logic for CefsharpWebViewControl.xaml
     /// </summary>
-    public partial class CefSharpWebViewControl : UserControl
+    public partial class CefsharpWebViewControl : UserControl
     {
         #region Fields
 
@@ -23,7 +23,7 @@ namespace WebInWpf.Cefsharp.NET452.Controls
 
         #region Constructor
 
-        public CefSharpWebViewControl()
+        public CefsharpWebViewControl()
         {
             InitializeComponent();
 
@@ -37,8 +37,6 @@ namespace WebInWpf.Cefsharp.NET452.Controls
             {
                 this.Dispatcher.Invoke(() =>
                 {
-                    Console.WriteLine($"web加载开始");
-
                     if (LoadingAnimated == null)
                     {
                         LoadingAnimated = this.FindResource("LoadingStoryboard") as Storyboard;
@@ -47,37 +45,33 @@ namespace WebInWpf.Cefsharp.NET452.Controls
                     LoadingAnimated.Begin(LoadingImage, true);
                 });
             },
-            e =>
+            canCancel =>
             {
-                this.Dispatcher.Invoke(() =>
+                if (canCancel)
                 {
-                    Console.WriteLine($"web加载完成");
-
-                    if (e)
+                    this.Dispatcher.Invoke(() =>
                     {
                         LoadingImage.Visibility = Visibility.Collapsed;
                         LoadingAnimated?.Stop(LoadingImage);
-                        Browser.JavascriptMessageReceived += Browser_JavascriptMessageReceived;
-                    }
-
-                    this.BackCommand = Browser.BackCommand;
-                    this.ForwardCommand = Browser.ForwardCommand;
-                });
+                    });
+                }
             },
-            ()=>
+            () =>
             {
                 this.Dispatcher.Invoke(() =>
                 {
-                    this.Address = $"{AppDomain.CurrentDomain.BaseDirectory}TestWeb//default.html";
+                    this.Address = $"{AppDomain.CurrentDomain.BaseDirectory}TestWeb\\default.html";
                 });
             });
 
             RegisterBoundObject("webView", new BoundObject());
 
-            this.Address = "https://www.baidu.com";
+            this.BackCommand = Browser.BackCommand;
+            this.ForwardCommand = Browser.ForwardCommand;
+
+            //this.Address = "https://www.baidu.com";
             //this.Address = $"{AppDomain.CurrentDomain.BaseDirectory}TestWeb//index.html";
             //this.Address = "https://cws-test.unipus.cn/?&id=320431807554125824&version=28&u-app-id=1709&mode=edit";
-
         }
 
         #endregion
@@ -91,7 +85,7 @@ namespace WebInWpf.Cefsharp.NET452.Controls
         }
 
         public static readonly DependencyProperty BackCommandProperty =
-            DependencyProperty.Register("BackCommand", typeof(ICommand), typeof(CefSharpWebViewControl), new PropertyMetadata(null));
+            DependencyProperty.Register("BackCommand", typeof(ICommand), typeof(CefsharpWebViewControl), new PropertyMetadata(null));
 
         public ICommand ForwardCommand
         {
@@ -100,8 +94,7 @@ namespace WebInWpf.Cefsharp.NET452.Controls
         }
 
         public static readonly DependencyProperty ForwardCommandProperty =
-            DependencyProperty.Register("ForwardCommand", typeof(ICommand), typeof(CefSharpWebViewControl), new PropertyMetadata(null));
-
+            DependencyProperty.Register("ForwardCommand", typeof(ICommand), typeof(CefsharpWebViewControl), new PropertyMetadata(null));
 
         public string Address
         {
@@ -110,11 +103,11 @@ namespace WebInWpf.Cefsharp.NET452.Controls
         }
 
         public static readonly DependencyProperty AddressProperty =
-            DependencyProperty.Register("Address", typeof(string), typeof(CefSharpWebViewControl), new PropertyMetadata(null, OnAddressPropertyChanged));
+            DependencyProperty.Register("Address", typeof(string), typeof(CefsharpWebViewControl), new PropertyMetadata(null, OnAddressPropertyChanged));
 
         private static void OnAddressPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (d is CefSharpWebViewControl control && e.NewValue != null)
+            if (d is CefsharpWebViewControl control && e.NewValue != null)
             {
                 control.Browser.Load(e.NewValue.ToString());
             }
@@ -124,7 +117,7 @@ namespace WebInWpf.Cefsharp.NET452.Controls
 
         #region EventHandles
 
-        private void Browser_JavascriptMessageReceived(object sender, JavascriptMessageReceivedEventArgs e)
+        private void OnBrowserJavascriptMessageReceived(object sender, JavascriptMessageReceivedEventArgs e)
         {
             Console.WriteLine(e.Message);
         }
@@ -142,6 +135,8 @@ namespace WebInWpf.Cefsharp.NET452.Controls
         {
             Browser.JavascriptObjectRepository.Settings.LegacyBindingEnabled = true;
             Browser.JavascriptObjectRepository.Register(name, objectToBind, true, BindingOptions.DefaultBinder);
+            Browser.JavascriptMessageReceived -= OnBrowserJavascriptMessageReceived;
+            Browser.JavascriptMessageReceived += OnBrowserJavascriptMessageReceived;
         }
 
         /// <summary>
