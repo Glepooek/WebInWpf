@@ -153,8 +153,9 @@ namespace WebInWpf.Cefsharp.NET452.Controls
             {
                 Browser?.GetBrowser()?.MainFrame.ExecuteJavaScriptAsync(code, scriptUrl, startLine);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                throw ex;
             }
         }
 

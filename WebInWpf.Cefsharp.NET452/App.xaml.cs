@@ -36,8 +36,9 @@ namespace WebInWpf.Cefsharp.NET452
             var settings = new CefSettings()
             {
                 IgnoreCertificateErrors = true,
+                WindowlessRenderingEnabled = true,
                 // 启用日志打印
-                LogSeverity = LogSeverity.Warning,
+                LogSeverity = LogSeverity.Error,
                 LogFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), $"CefSharp\\{DateTime.Now:yyyy-MM-dd}.log"),
                 UserDataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CefSharp\\UserData"),
                 // By default CefSharp will use an in-memory cache, you need to specify a Cache Folder to persist data
@@ -53,8 +54,10 @@ namespace WebInWpf.Cefsharp.NET452
             settings.CefCommandLineArgs.Add("disable-application-cache", "1");
             settings.CefCommandLineArgs.Add("allow-file-access-from-files", "1");
             settings.CefCommandLineArgs.Add("disable-gpu", "1"); // 禁用gpu,解决闪烁的问题
+            settings.CefCommandLineArgs.Add("disable-gpu-compositing", "1");
             settings.CefCommandLineArgs.Add("touch-events", "1");
             settings.CefCommandLineArgs.Add("disable-web-security", "1");// 关闭同源策略，允许跨域调试
+            settings.CefCommandLineArgs.Add("no-proxy-server", "1");// 禁用代理
 
             if (!Cef.IsInitialized)
             {
