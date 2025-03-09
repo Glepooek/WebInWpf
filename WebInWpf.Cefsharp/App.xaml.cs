@@ -1,13 +1,10 @@
-﻿using CefSharp.Wpf;
-using CefSharp;
+﻿using CefSharp;
+using CefSharp.Wpf;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
+using System.IO;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows;
-using System.IO;
 
 namespace Unipus.Student.Client
 {
@@ -20,8 +17,6 @@ namespace Unipus.Student.Client
 
         public App()
         {
-            InitializeCef();
-
             this.Startup += OnStartup;
             this.DispatcherUnhandledException += OnDispatcherUnhandledException;
             AppDomain.CurrentDomain.UnhandledException += OnCurrentDomainUnhandledException;
@@ -32,9 +27,9 @@ namespace Unipus.Student.Client
 
         #region EventHandler
 
-        private void OnStartup(object sender, StartupEventArgs e)
+        private async void OnStartup(object sender, StartupEventArgs e)
         {
-
+            await InitializeCefAsync();
         }
 
         private void OnDispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
@@ -59,10 +54,13 @@ namespace Unipus.Student.Client
 
         #region Methods
 
-        private void InitializeCef()
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        private async Task<bool> InitializeCefAsync()
         {
             CefSharpSettings.FocusedNodeChangedEnabled = true;
             CefSharpSettings.SubprocessExitIfParentProcessClosed = true;
+            CefSharpSettings.ConcurrentTaskExecution = true;
+            CefSharpSettings.ShutdownOnExit = true;
 
             var settings = new CefSettings()
             {
@@ -78,14 +76,21 @@ namespace Unipus.Student.Client
             settings.CefCommandLineArgs.Add("enable-media-stream");
             settings.CefCommandLineArgs.Add("use-fake-ui-for-media-stream");
             settings.CefCommandLineArgs.Add("enable-usermedia-screen-capturing");
+            settings.CefCommandLineArgs.Add("disable-gpu", "1"); // 禁用gpu,解决闪烁的问题
+            settings.CefCommandLineArgs.Add("disable-gpu-compositing", "1");
+            settings.CefCommandLineArgs.Add("touch-events", "1");
+            settings.CefCommandLineArgs.Add("disable-web-security", "1");// 关闭同源策略，允许跨域调试
+            settings.CefCommandLineArgs.Add("no-proxy-server", "1");// 禁用代理
 
             var result = Cef.IsInitialized;
             if (result.HasValue && !result.Value)
             {
                 //Cef.EnableHighDPISupport();
                 //Perform dependency check to make sure all relevant resources are in our output directory.
-                Cef.Initialize(settings, performDependencyCheck: true, browserProcessHandler: null);
+                return await Cef.InitializeAsync(settings, performDependencyCheck: true, browserProcessHandler: null);
             }
+
+            return false;
         }
 
         #endregion

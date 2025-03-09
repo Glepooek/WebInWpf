@@ -3,6 +3,7 @@ using CefSharp.Wpf;
 using System;
 using System.IO;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using System.Windows;
 
 // https://gitcode.com/open-source-toolkit/cefa1/overview
@@ -19,19 +20,56 @@ namespace WebInWpf.Cefsharp.NET452
     /// </summary>
     public partial class App : Application
     {
+        #region Constructor
+
         public App()
         {
-            CefRuntime.SubscribeAnyCpuAssemblyResolver();
-            InitializeCef();
+            this.Startup += OnStartup;
+            this.DispatcherUnhandledException += OnDispatcherUnhandledException;
+            AppDomain.CurrentDomain.UnhandledException += OnCurrentDomainUnhandledException;
+            TaskScheduler.UnobservedTaskException += OnTaskSchedulerUnobservedTaskException;
         }
 
+        #endregion
+
+        #region EventHandler
+
+        private async void OnStartup(object sender, StartupEventArgs e)
+        {
+            CefRuntime.SubscribeAnyCpuAssemblyResolver();
+            await InitializeCefAsync();
+        }
+
+        private void OnDispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+        {
+
+        }
+
+        private void OnCurrentDomainUnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            if (e.ExceptionObject is Exception ex)
+            {
+
+            }
+        }
+
+        private void OnTaskSchedulerUnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
+        {
+
+        }
+
+        #endregion
+
+        #region Methods
+
         [MethodImpl(MethodImplOptions.NoInlining)]
-        private void InitializeCef()
+        private async Task<bool> InitializeCefAsync()
         {
             CefSharpSettings.FocusedNodeChangedEnabled = true;
             CefSharpSettings.SubprocessExitIfParentProcessClosed = true;
             CefSharpSettings.WcfEnabled = true;
             CefSharpSettings.ShutdownOnExit = true;
+            CefSharpSettings.ConcurrentTaskExecution = true;
 
             var settings = new CefSettings()
             {
@@ -63,8 +101,12 @@ namespace WebInWpf.Cefsharp.NET452
             {
                 //Cef.EnableHighDPISupport();
                 //Perform dependency check to make sure all relevant resources are in our output directory.
-                Cef.Initialize(settings, performDependencyCheck: true);
+                return await Cef.InitializeAsync(settings, performDependencyCheck: true);
             }
+
+            return false;
         }
+
+        #endregion
     }
 }
